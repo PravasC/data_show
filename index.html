@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <img id="logoimg" src="image\coding blog.png" alt="">
+      <h1 class="text-center">Welcome to Coding Blog</h1>
+      <h4 id="dataentry">Employe Salary Paid Data</h4>
+
+      <div id="formone" class="form-group">
+        <label class="labelone">Frist Name:</label>
+        <input id="fName" class="form-control" type="text" name="fName">
+        <label>Last Name:</label>
+        <input id="lName" class="form-control" type="text" name="lName">
+        <label>Email:</label>
+        <input id="uEmail" class="form-control" type="email" name="emailno">
+        <label>Phone NO:</label>
+        <input id="uPhone" class="form-control" type="text" name="Phone_no">
+        <div class="col text-center">
+        <input id="submitbtn" type="submit" name="submitbtn" value="SUBMIT">
+      </div>
+      </div>
+      <h3 class="text-center">Your Data</h3>
+      <div class="row">
+      <table id="showdata">
+
+      </table>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        function loadtable(){
+          $.ajax({
+            url : "showdata.php",
+            type : "post",
+            success : function(data){
+              $("#tableshow").html(data);
+            }
+          });
+        }
+        loadtable();
+        //data input jquery
+        $("#submitbtn").on("click",function(e){
+          e.preventDefault();
+          var fName = $("input#fName").val();
+          var lName = $("input#lName").val();
+          var uEmail = $("input#uEmail").val();
+          var uPhone = $("input#uPhone").val();
+
+          $.ajax({
+            url : "insertdata.php",
+            type : "post",
+            data: {frist_N : fName, last_N : lName,u_email : uEmail,u_phone:uPhone},
+            success : function(data){
+              if(data == 1){
+                loadtable();
+                $("#formone").trigger("reset");
+              }else{
+                alert("NOT INSERT PROBLEM")
+              }
+          }
+
+        });
+      });
+    </script>
+  </body>
+</html>
