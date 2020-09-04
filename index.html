@@ -15,6 +15,7 @@
       <h4 id="dataentry">Employe Salary Paid Data</h4>
 
       <div id="formone" class="form-group">
+        <form id="myform">
         <label class="labelone">Frist Name:</label>
         <input id="fName" class="form-control" type="text" name="fName">
         <label>Last Name:</label>
@@ -25,49 +26,52 @@
         <input id="uPhone" class="form-control" type="text" name="Phone_no">
         <div class="col text-center">
         <input id="submitbtn" type="submit" name="submitbtn" value="SUBMIT">
+      </form>
       </div>
       </div>
       <h3 class="text-center">Your Data</h3>
       <div class="row">
-      <table id="showdata">
+      <table id="showtable">
 
       </table>
       </div>
     </div>
     <script type="text/javascript">
-    $(document).ready(function(){
+      $(document).ready(function(){
         function loadtable(){
           $.ajax({
             url : "showdata.php",
             type : "post",
             success : function(data){
-              $("#tableshow").html(data);
+              $("#showtable").html(data);
             }
           });
         }
         loadtable();
-        //data input jquery
-        $("#submitbtn").on("click",function(e){
+               //data input jquery
+               $("#submitbtn").on("click",function(e){
           e.preventDefault();
           var fName = $("input#fName").val();
           var lName = $("input#lName").val();
           var uEmail = $("input#uEmail").val();
-          var uPhone = $("input#uPhone").val();
+          var uphone = $("input#uPhone").val();
+
 
           $.ajax({
             url : "insertdata.php",
             type : "post",
-            data: {frist_N : fName, last_N : lName,u_email : uEmail,u_phone:uPhone},
+            data: {frist_N : fName, last_N : lName,u_email: uEmail, u_Phone: uphone},
             success : function(data){
               if(data == 1){
                 loadtable();
-                $("#formone").trigger("reset");
+                $("#myform").trigger("reset");
               }else{
                 alert("NOT INSERT PROBLEM")
               }
           }
 
         });
+      });
       });
     </script>
   </body>

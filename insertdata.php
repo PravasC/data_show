@@ -1,12 +1,12 @@
 <?php
 require_once("connect.php");
 
-$userName = $_REQUEST["frist_N"];
-$userPassword = $_REQUEST["last_N"];
-$userPassword = $_REQUEST["u_email"];
-$userPassword = $_REQUEST["u_phone"];
+$user_fName = $_REQUEST["frist_N"];
+$user_lName = $_REQUEST["last_N"];
+$user_email = $_REQUEST["u_email"];
+$user_phone = $_REQUEST["u_Phone"];
 
-$q  = "INSERT INTO `emplye_users`(`fName`, `lName`, `uemail`, `phone_number`) VALUES ('$userName','$userPassword','$userPassword','$userPassword')";
+$q  = "INSERT INTO `emplye_users`(`fName`, `lName`, `user_email`, `phone_number`) VALUES ('$user_fName','$user_lName','$user_email','$user_phone')";
 
 $querry = mysqli_query($connect,$q);
 
